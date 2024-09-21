@@ -1,0 +1,6 @@
+pypdf
+langchain~=0.3.0
+chromadb
+pytest
+PyYAML~=6.0.2
+python-dotenv~=1.0.1

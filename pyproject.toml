@@ -1,0 +1,6 @@
+[project]
+name = "rag-pdf-retriever"
+varsion = "0.0.1"
+authors = {name = "Dmytro Ivanenko"}
+description = "Simple RAG to retrieve information from custom PDF source files, built using ChatGPT."
+requires-python = ">=3.9"

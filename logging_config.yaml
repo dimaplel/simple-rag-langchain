@@ -1,0 +1,46 @@
+version: 1
+disable_existing_loggers: false
+
+formatters:
+  simple:
+    format: '%(levelname)s - %(asctime)s - %(filename)s - %(name)s - %(message)s'
+    datefmt: '%Y-%m-%d %H:%M:%S'
+  detailed:
+    format: '%(levelname)s - %(asctime)s - %(name)s - [%(filename)s:%(lineno)d] - %(message)s'
+    datefmt: '%Y-%m-%d %H:%M:%S'
+
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: DEBUG
+    formatter: simple
+    stream: ext://sys.stdout
+
+  file_dev:
+    class: logging.FileHandler
+    level: DEBUG
+    formatter: detailed
+    filename: ../dev.log
+    mode: 'a'
+
+  file_prod:
+    class: logging.FileHandler
+    level: WARNING
+    formatter: detailed
+    filename: ../prod.log
+    mode: 'a'
+
+loggers:
+  dev:
+    level: DEBUG
+    handlers: [console, file_dev]
+    propagate: no
+
+  prod:
+    level: WARNING
+    handlers: [file_prod]
+    propagate: no
+
+root:
+  level: DEBUG
+  handlers: [console]
