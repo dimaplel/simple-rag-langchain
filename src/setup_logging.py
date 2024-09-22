@@ -8,7 +8,12 @@ import yaml
 
 
 def setup_logging(path_to_config: str = "../logging_config.yaml"):
-    with open(path_to_config) as f:
+    """
+    Setups the logging config
+    :param path_to_config: path to yaml file with logging config
+    :return: nothing
+    """
+    with open(path_to_config, encoding="utf-8") as f:
         config = yaml.safe_load(f)
         logging.config.dictConfig(config)
 

@@ -1,6 +1,6 @@
 """
-The Main module that takes a query as a console argument and returns answer depending on the context,
-retrieved from the vector database.
+The Main module that takes a query as a console argument and returns answer depending on the
+context, retrieved from the vector database.
 """
 import argparse
 import logging

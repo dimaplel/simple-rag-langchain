@@ -37,7 +37,7 @@ def main():
     add_data_to_chroma(chunks)
 
 
-def load_from_folder() -> list[Document] | None:
+def load_from_folder() -> list[Document] or None:
     """
     Loads PDF documents from the data folder
     :return: list of Documents, or None if no documents were loaded
@@ -61,8 +61,8 @@ def split_documents(documents: list[Document]):
 
 def add_data_to_chroma(chunks: list[Document]):
     """
-    Checks if there are new chunks and adds the new ones to the vector db. Ids are generated for chunks, and its
-    contents are turned into embeddings and stored there.
+    Checks if there are new chunks and adds the new ones to the vector db.
+    Ids are generated for chunks, and its contents are turned into embeddings and stored there.
     :param chunks: Split documents
     :return: None
     """
@@ -75,10 +75,11 @@ def add_data_to_chroma(chunks: list[Document]):
     existing_items = chroma.get(include=[])
     existing_ids = set(existing_items.get("ids"))
 
-    chunk_with_ids = [chunk for chunk in chunk_with_ids if chunk.metadata.get("id") not in existing_ids]
+    chunk_with_ids = [chunk for chunk in chunk_with_ids
+                      if chunk.metadata.get("id") not in existing_ids]
 
     if chunk_with_ids:
-        logger.info(f"🦜 Adding {len(chunk_with_ids)} new documents to Chroma")
+        logger.info("🦜 Adding %i new documents to Chroma" % len(chunk_with_ids))
         new_ids = [chunk.metadata.get("id") for chunk in chunk_with_ids]
         chroma.add_documents(documents=chunk_with_ids, ids=new_ids)
         return
@@ -99,7 +100,8 @@ def generate_document_ids(chunks: list[Document]):
     Generates id for chunks, so that they could be added into vector db
 
     :param chunks: Split documents
-    :return: chunks with ids based on the source file, page and chunk number. Format: `source:page:chunk`
+    :return: chunks with ids based on the source file, page and chunk number.
+    Format: `source:page:chunk`
     """
     prev_page = None
     cur_chunk_id = 0
