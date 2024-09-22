@@ -1,3 +1,6 @@
+"""
+Module for setting up logging config
+"""
 import sys
 import logging
 import logging.config

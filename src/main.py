@@ -1,3 +1,7 @@
+"""
+The Main module that takes a query as a console argument and returns answer depending on the context,
+retrieved from the vector database.
+"""
 import argparse
 import logging
 
@@ -13,6 +17,10 @@ logger = logging.getLogger(__name__)
 
 
 def main():
+    """
+    Parses query from console and outputs the response from the model
+    :return:
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument("query_text", type=str, help="The question you would like to ask.")
     args = parser.parse_args()
@@ -23,6 +31,12 @@ def main():
 
 
 def query_rag(query: str):
+    """
+    Retrieves relevant documents to the given query and gets a query response from
+    OpenAI chat model based on the context which is formed from the relevant chunks.
+    :param query:
+    :return:
+    """
     chroma = Chroma(
         persist_directory=DB_PATH,
         embedding_function=get_embedding_function()
@@ -36,7 +50,8 @@ def query_rag(query: str):
     model = ChatOpenAI(model="gpt-4o-mini-2024-07-18")
     response = model.invoke(prompt)
 
-    sources_with_scores = "; ".join([f"{chunk.metadata.get('id')}: {score: .2f}" for chunk, score in relevant_chunks])
+    sources_with_scores = "; ".join([f"{chunk.metadata.get('id')}: {score: .2f}"
+                                     for chunk, score in relevant_chunks])
 
     response_text = f"Відповідь: {response.content}\n\nДжерела: {sources_with_scores}"
 

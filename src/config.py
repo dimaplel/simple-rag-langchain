@@ -1,3 +1,7 @@
+"""
+Module that retrieves environment variables and puts them inside variables that are imported
+ in the other modules.
+"""
 import os
 from dotenv import load_dotenv
 

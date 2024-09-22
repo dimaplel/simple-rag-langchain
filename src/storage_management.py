@@ -1,3 +1,8 @@
+"""
+Module that adds documents from the data folder into the vector db. Each page becomes a separate
+document, which has then to be split into chunks for greater granularity. If --clear
+argument is present, the vector db is cleared first.
+"""
 import argparse
 import logging
 import shutil
@@ -15,7 +20,11 @@ logger = logging.getLogger(__name__)
 
 
 def main():
-    # CLI arguments parser
+    """
+    Method, that loads new documents from the `data` folder into the vector db.
+    Parses --clear argument and, if present, clears the vector db.
+    :return:
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument("--clear", action="store_true", help="Clear all the data from the DB.")
     args = parser.parse_args()
